@@ -4,15 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
-    "fix": "npm run prettier --write"
+    "dev": "nodemon app.js",
+    "prettier": "prettier --write **/*.js *.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "method-override": "^3.0.0",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "eslint": "^5.13.0",
     "nodemon": "^1.18.10",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "prettier-eslint": "^8.8.2"
   }
 }

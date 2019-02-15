@@ -1,20 +1,22 @@
 module.exports = {
   env: {
-    browser: true,
+    node: true,
     commonjs: true
   },
   extends: "eslint:recommended",
   parserOptions: {
-    ecmaVersion: 5
+    ecmaVersion: 6
   },
   rules: {
-    indent: ["error", "space"],
+    indent: ["error", 2],
     "linebreak-style": ["error", "unix"],
-    quotes: ["error", "double"],
+    quotes: ["error", "single"],
     semi: ["error", "always"],
     "prefer-const": ["error", {
       "destructuring": "any",
       "ignoreReadBeforeAssign": false
-    }]
+    }],
+    "no-var": "error",
+    "no-console": ["error", { allow: ["warn", "error"] }]
   }
 };
