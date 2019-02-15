@@ -51,7 +51,7 @@ passport.deserializeUser(User.deserializeUser());
 // app.use("/campgrounds", campgroundRoutes);
 // app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function () {
+app.listen(process.env.PORT, process.env.IP, function() {
   console.warn(
     'Allergy Server has started on http://localhost:' + process.env.PORT
   );
