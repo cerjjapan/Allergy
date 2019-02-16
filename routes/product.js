@@ -41,4 +41,17 @@ router.post("/", function(req, res){
 
 
 
+//SHOW - Delivers product data to React-native
+router.get("/:id", function(req, res){
+    Product.find({userId: req.params.id}).exec(function(err, foundProducts){
+        if(err){
+            console.log(err);
+       } else {
+               console.log(foundProducts);
+               res.send(foundProducts);
+       } 
+    });
+});
+
+
 module.exports = router;
