@@ -20,8 +20,8 @@ mongoose.connect(
   'mongodb://cerjjapan:JunctionAllergy2019@ds237955.mlab.com:37955/allergy'
 );
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
-app.use(methodOverride('_method'));
+app.use(express.static('/public'));
+// app.use(methodOverride('_method'));
 
 // app.locals.moment = require('moment');
 
