@@ -88,7 +88,7 @@ app.post('/uploadPhoto', (req, res) => {
     }
     console.warn('uploaded or error');
     const imgUrl = 'https://allergynode.herokuapp.com/photos/test-photo.jpg';
-    return { imgUrl };
+    return res.send({ imgUrl: imgUrl });
   });
 });
 
