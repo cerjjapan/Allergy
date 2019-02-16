@@ -4,11 +4,11 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       cors = require('cors'),
       mongoose = require('mongoose'),
-      passport = require('passport'),
-      LocalStrategy = require('passport-local'),
+    //   passport = require('passport'),
+    //   LocalStrategy = require('passport-local'),
       methodOverride = require('method-override'),
-      Product = require('./models/product'),
-      User = require('./models/user');
+      Product = require('./models/product');
+    //   User = require('./models/user');
 // seedDB          = require("./seeds")
 
 //Requiring Routes
@@ -39,11 +39,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 app.use("/product", productRoutes);
 app.use('/image', imageRoutes);
