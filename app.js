@@ -81,7 +81,7 @@ app.post('/uploadPhoto', (req, res) => {
   console.warn('passed upload...');
   console.warn({ upload });
   upload(req, res, err => {
-    console.warn('entered upload function...');
+    console.warn('entered upload function...', { file: req.file, err });
     if (err) {
       return res.send({
         error: 'There was an error uploading your image.'
