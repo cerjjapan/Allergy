@@ -16,6 +16,7 @@ const express = require('express'),
 const loginRoutes = require('./routes/login');
 const productRoutes = require('./routes/product');
 const commentRoutes = require('./routes/comments');
+const imageRoutes = require('./routes/image');
 
 app.get('/', (req, res) => {
   res.send({
@@ -66,6 +67,7 @@ app.get('/', (req, res) => {
 // app.use("/", indexRoutes);
 app.use('/product', productRoutes);
 app.use('/comments', commentRoutes);
+app.use('/image', imageRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
   console.warn(
