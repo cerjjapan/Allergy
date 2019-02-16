@@ -6,15 +6,25 @@ const express = require('express'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
-  // methodOverride = require('method-override'),
-  // Product = require('./models/product'),
-  // Comment = require('./models/comment'),
+  methodOverride = require('method-override'),
+  Product = require('./models/product'),
+  Comment = require('./models/comment'),
   User = require('./models/user');
 // seedDB          = require("./seeds")
 
 //Requiring Routes
-// const loginRoutes = require('./routes/login');
+const loginRoutes = require('./routes/login');
+const productRoutes = require('./routes/product');
+const commentRoutes = require('./routes/comments');
 const imageRoutes = require('./routes/image');
+
+app.get('/', (req, res) => {
+  res.send({
+    here: 'is',
+    some: 'cool',
+    data: '.'
+  });
+});
 
 mongoose.connect(
   'mongodb://cerjjapan:JunctionAllergy2019@ds237955.mlab.com:37955/allergy'
@@ -26,13 +36,13 @@ app.use(express.static('/public'));
 // app.locals.moment = require('moment');
 
 //  PASSPORT CONFIGURATION
-app.use(
-  require('express-session')({
-    secret: 'Blade Runner is the best movie!',
-    resave: false,
-    saveUninitialized: false
-  })
-);
+// app.use(
+//     require('express-session')({
+//         secret: 'Blade Runner is the best movie!',
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// );
 
 app.enable('trust proxy');
 
@@ -54,9 +64,9 @@ app.get('/', (req, res) => {
   });
 });
 
-// app.use("/", indexRoutes);
-// app.use("/campgrounds", campgroundRoutes);
-// app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/", indexRoutes);
+app.use('/product', productRoutes);
+app.use('/comments', commentRoutes);
 app.use('/image', imageRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
