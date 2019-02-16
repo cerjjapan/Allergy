@@ -3,24 +3,6 @@ var router = express.Router();
 var Product = require("../models/product");
 // var middleware = require("../middleware");
 
-router.get("/", function(req, res){
-    //Get all products from DB
-    Product.find({}, function(err, allProducts){
-       if(err){
-            console.log(err);
-       } else {
-           res.send({ 
-                here: 'is',
-                some: 'cool',
-                data: '.'
-    });
-           
-        //   res.render("campgrounds/index", {products:allProducts});
-       } 
-    });
-
-});
-
  
 //CREATE - add new product to DB
 router.post("/", function(req, res){
@@ -41,17 +23,41 @@ router.post("/", function(req, res){
 
 
 
-//SHOW - Delivers product data to React-native
+// SHOW - Delivers product data to React-native
 router.get("/:id", function(req, res){
     Product.find({userId: req.params.id}).exec(function(err, foundProducts){
         if(err){
             console.log(err);
-       } else {
-               console.log(foundProducts);
-               res.send(foundProducts);
-       } 
+      } else {
+              console.log(foundProducts);
+              res.send(foundProducts);
+      } 
     });
 });
 
+//DELETE - Deletes product from database
+router.delete("/:id", function(req, res){
+    Product.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            console.log(err);
+        } else {
+            console.log("Product deleted");
+        }
+    })
+});
+
+//Update product route
+router.put("/:id", function(req, res){
+   //find and update the correct product
+   console.log(1, req.body.product)
+   Product.findByIdAndUpdate(req.params.id, req.body.product, {new: true}, function(err, updatedProduct){
+       console.log(2, updatedProduct)
+       if(err){
+          console.log(err);
+       } else {
+         res.send(updatedProduct);
+       }
+   });
+});
 
 module.exports = router;
