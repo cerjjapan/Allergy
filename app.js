@@ -6,15 +6,24 @@ const express = require('express'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
-  multer = require('multer'),
-  // methodOverride = require('method-override'),
-  // Product = require('./models/product'),
-  // Comment = require('./models/comment'),
+  methodOverride = require('method-override'),
+  Product = require('./models/product'),
+  Comment = require('./models/comment'),
   User = require('./models/user');
 // seedDB          = require("./seeds")
 
 //Requiring Routes
-// const loginRoutes = require('./routes/login');
+const loginRoutes = require('./routes/login');
+const productRoutes = require('./routes/product');
+const commentRoutes = require('./routes/comments');
+
+app.get('/', (req, res) => {
+  res.send({
+    here: 'is',
+    some: 'cool',
+    data: '.'
+  });
+});
 
 mongoose.connect(
   'mongodb://cerjjapan:JunctionAllergy2019@ds237955.mlab.com:37955/allergy'
@@ -26,13 +35,13 @@ app.use(express.static('/public'));
 // app.locals.moment = require('moment');
 
 //  PASSPORT CONFIGURATION
-app.use(
-  require('express-session')({
-    secret: 'Blade Runner is the best movie!',
-    resave: false,
-    saveUninitialized: false
-  })
-);
+// app.use(
+//     require('express-session')({
+//         secret: 'Blade Runner is the best movie!',
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// );
 
 app.enable('trust proxy');
 
@@ -54,48 +63,9 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/uploadPhoto', (req, res) => {
-  console.warn({ body: req.body });
-  const Storage = multer.diskStorage({
-    destination: './public/photos',
-    filename(req, file, callback) {
-      console.warn({ file });
-      callback(null, 'test-photo.jpg');
-    }
-  });
-  console.warn('passed storage...');
-  console.warn({ Storage });
-  const upload = multer({
-    storage: Storage,
-    fileFilter: function(req, file, cb) {
-      console.warn({ file });
-      if (file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg') {
-        return res.send({
-          error: 'Only .jpg and .jpeg files can be uploaded.'
-        });
-      }
-      cb(null, true);
-    }
-  }).array('test-photo.jpg', 1);
-  console.warn('passed upload...');
-  console.warn({ upload });
-  upload(req, res, err => {
-    console.warn('entered upload function...', { file: req.file, err });
-    if (err) {
-      return res.send({
-        error: 'There was an error uploading your image.'
-      });
-    }
-    console.warn('uploaded or error');
-    const imgUrl = 'https://allergynode.herokuapp.com/photos/test-photo.jpg';
-    console.warn({ imgUrl });
-    res.send(imgUrl);
-  });
-});
-
 // app.use("/", indexRoutes);
-// app.use("/campgrounds", campgroundRoutes);
-// app.use("/campgrounds/:id/comments", commentRoutes);
+app.use('/product', productRoutes);
+app.use('/comments', commentRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
   console.warn(
