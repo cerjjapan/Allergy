@@ -64,6 +64,7 @@ app.post('/uploadPhoto', (req, res) => {
     }
   });
   console.warn('passed storage...');
+  console.warn({ Storage });
   const upload = multer({
     storage: Storage,
     limits: { fileSize: 150000 },
@@ -78,7 +79,9 @@ app.post('/uploadPhoto', (req, res) => {
     }
   }).array('test-photo.jpg', 1);
   console.warn('passed upload...');
+  console.warn({ upload });
   upload(req, res, err => {
+    console.warn('entered upload function...');
     if (err) {
       return res.send({
         error: 'There was an error uploading your image.'
