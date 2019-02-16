@@ -64,7 +64,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use("/", indexRoutes);
+// app.use("/", indexRoutes);
 app.use('/product', productRoutes);
 app.use('/comments', commentRoutes);
 app.use('/image', imageRoutes);
