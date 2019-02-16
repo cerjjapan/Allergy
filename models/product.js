@@ -9,7 +9,7 @@ const ProductSchema = new mongoose.Schema({
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'Comment'
                 },
-            });
+            }});
 
         ProductSchema.plugin(passportLocalMongoose);
 

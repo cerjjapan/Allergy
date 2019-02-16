@@ -1,34 +1,37 @@
 require('dotenv').load();
 const express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    cors = require('cors'),
-    mongoose = require('mongoose'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    methodOverride = require('method-override'),
-    // Product = require('./models/product'),
-    // Comment = require('./models/comment'),
-    User = require('./models/user');
+      app = express(),
+      bodyParser = require('body-parser'),
+      cors = require('cors'),
+      mongoose = require('mongoose'),
+      passport = require('passport'),
+      LocalStrategy = require('passport-local'),
+      methodOverride = require('method-override'),
+      Product = require('./models/product'),
+      Comment = require('./models/comment'),
+      User = require('./models/user');
 // seedDB          = require("./seeds")
 
 //Requiring Routes
-// const loginRoutes = require('./routes/login');
+const loginRoutes = require('./routes/login');
+const productRoutes = require('./routes/product');
+const commentRoutes = require('./routes/comments');
 
 app.get('/', (req, res) => {
-    res.send({
+    res.send({ 
         here: 'is',
         some: 'cool',
         data: '.'
     });
 });
+app.use("/comments", commentRoutes);
 
 mongoose.connect('mongodb://localhost/allergyApp');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 
-app.locals.moment = require('moment');
+// app.locals.moment = require('moment');
 
 //  PASSPORT CONFIGURATION
 app.use(
@@ -48,8 +51,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // app.use("/", indexRoutes);
-// app.use("/campgrounds", campgroundRoutes);
-// app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/product", productRoutes);
+app.use("/comments", commentRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.warn(
