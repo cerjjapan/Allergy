@@ -1,14 +1,14 @@
-var express = require("express");
-var router = express.Router({mergeParams: true});
-var User = require("../models/user");
-var Comment = require("../models/comment");
-var Product = require("../models/product");
-var middleware = require("../middleware");
+const express = require("express");
+const router = express.Router({mergeParams: true});
+const User = require("../models/user");
+const Comment = require("../models/comment");
+const Product = require("../models/product");
+// const middleware = require("../middleware");
 
 
 //Comments New
 
-router.get("/", middleware.isLoggedIn, function(req, res){
+router.get("/", function(req, res){
     //Find user by ID
     Product.findById(req.params.id, function(err, product){
         if(err){
@@ -26,34 +26,33 @@ router.get("/", middleware.isLoggedIn, function(req, res){
 
 // //Comments Create
 
-// router.post("/", middleware.isLoggedIn, function(req, res){
-//     //Lookup campground using id
-//     User.findById(req.params.id, function(err, campground){
-//         if(err){
-//             console.log(err);
-//             res.redirect("/campgrounds");
-//         } else {
-//  //create new comments
-//             Comment.create(req.body.comment, function(err, comment){
-//                  if(err){
-//                     req.flash("error", "Something went wrong");
-//                     console.log(err);
-//                 } else {
-// //add username and id and save comment
-//                   comment.author.id = req.user._id;  
-//                   comment.author.username = req.user.username;
-//                   comment.save();
-//  //connect new comments to campground
-//                     campground.comments.push(comment);
-//                     campground.save();
-// //redirect  to campground show page          
-//                     req.flash("success", "Successfully added comment");
-//                     res.redirect("/campgrounds/" + campground._id);
-//                 }
-//             });
-//         }
-//     });
-// });
+router.post("/", function(req, res){
+    //Lookup product using id
+    Product.findById(req.params.id, function(err, product){
+        if(err){
+            console.log(err);
+            return
+        } else {
+ //create new comments
+            Comment.create(req.body.comment, function(err, comment){
+                 if(err){
+                    console.log("error", "Something went wrong");
+                    console.log(err);
+                } else {
+//add username and id and save comment
+                  comment.author.id = req.user._id;  
+                  comment.author.username = req.user.username;
+                  comment.save();
+ //connect new comments to product
+                    product.comments.push(comment);
+                    product.save();
+//redirect  to campground show page          
+                    res.redirect("/product/" + product._id);
+                }
+            });
+        }
+    });
+});
 // //Comments edit route
 // router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
 //     Comment.findById(req.params.comment_id, function(err, foundComment){

@@ -24,9 +24,9 @@ app.get('/', (req, res) => {
         data: '.'
     });
 });
-app.use("/comments", commentRoutes);
 
-mongoose.connect('mongodb://localhost/allergyApp');
+
+mongoose.connect('mongodb://cerjjapan:JunctionAllergy2019@ds237955.mlab.com:37955/allergy');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
@@ -34,13 +34,13 @@ app.use(methodOverride('_method'));
 // app.locals.moment = require('moment');
 
 //  PASSPORT CONFIGURATION
-app.use(
-    require('express-session')({
-        secret: 'Blade Runner is the best movie!',
-        resave: false,
-        saveUninitialized: false
-    })
-);
+// app.use(
+//     require('express-session')({
+//         secret: 'Blade Runner is the best movie!',
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// );
 
 app.use(cors());
 app.use(bodyParser.json());
