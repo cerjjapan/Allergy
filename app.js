@@ -25,8 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/uploadPhoto', (req, res) => {
-  console.log('entered upload photo...');
-  console.log({ file: req.file });
+  console.warn({ body: req.body });
   const Storage = multer.diskStorage({
     destination: './public/photos',
     filename(req, file, callback) {
@@ -54,7 +53,7 @@ app.post('/uploadPhoto', (req, res) => {
       });
     }
 
-    const imgUrl = 'http://localhost:5000/photos/test-photo.jpg';
+    const imgUrl = 'https://allergynode.herokuapp.com/photos/test-photo.jpg';
     return { imgUrl };
   });
 });
