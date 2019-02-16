@@ -59,10 +59,11 @@ app.post('/uploadPhoto', (req, res) => {
   const Storage = multer.diskStorage({
     destination: './public/photos',
     filename(req, file, callback) {
+      console.warn({ file });
       callback(null, 'test-photo.jpg');
     }
   });
-
+  console.warn('passed storage...');
   const upload = multer({
     storage: Storage,
     limits: { fileSize: 150000 },
@@ -76,14 +77,14 @@ app.post('/uploadPhoto', (req, res) => {
       cb(null, true);
     }
   }).array('test-photo.jpg', 1);
-
+  console.warn('passed upload...');
   upload(req, res, err => {
     if (err) {
       return res.send({
         error: 'There was an error uploading your image.'
       });
     }
-
+    console.warn('uploaded or error');
     const imgUrl = 'https://allergynode.herokuapp.com/photos/test-photo.jpg';
     return { imgUrl };
   });
