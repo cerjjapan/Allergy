@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-    productID: String
+    productID: String,
     text: String,
     createdAt: { type: Date, default: Date.now },
     author: {
