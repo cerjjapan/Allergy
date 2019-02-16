@@ -1,26 +1,26 @@
 require('dotenv').load();
 const express = require('express'),
-  app = express(),
-  bodyParser = require('body-parser'),
-  cors = require('cors'),
-  mongoose = require('mongoose'),
-  passport = require('passport'),
-  LocalStrategy = require('passport-local'),
-  methodOverride = require('method-override'),
-  // Product = require('./models/product'),
-  // Comment = require('./models/comment'),
-  User = require('./models/user');
+    app = express(),
+    bodyParser = require('body-parser'),
+    cors = require('cors'),
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local'),
+    methodOverride = require('method-override'),
+    // Product = require('./models/product'),
+    // Comment = require('./models/comment'),
+    User = require('./models/user');
 // seedDB          = require("./seeds")
 
 //Requiring Routes
 // const loginRoutes = require('./routes/login');
 
 app.get('/', (req, res) => {
-  res.send({
-    here: 'is',
-    some: 'cool',
-    data: '.'
-  });
+    res.send({
+        here: 'is',
+        some: 'cool',
+        data: '.'
+    });
 });
 
 mongoose.connect('mongodb://localhost/allergyApp');
@@ -32,11 +32,11 @@ app.locals.moment = require('moment');
 
 //  PASSPORT CONFIGURATION
 app.use(
-  require('express-session')({
-    secret: 'Blade Runner is the best movie!',
-    resave: false,
-    saveUninitialized: false
-  })
+    require('express-session')({
+        secret: 'Blade Runner is the best movie!',
+        resave: false,
+        saveUninitialized: false
+    })
 );
 
 app.use(cors());
@@ -52,7 +52,7 @@ passport.deserializeUser(User.deserializeUser());
 // app.use("/campgrounds/:id/comments", commentRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
-  console.warn(
-    'Allergy Server has started on http://localhost:' + process.env.PORT
-  );
+    console.warn(
+        'Allergy Server has started on http://localhost:' + process.env.PORT
+    );
 });
