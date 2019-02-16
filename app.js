@@ -7,7 +7,7 @@ const express = require('express'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
   multer = require('multer'),
-  methodOverride = require('method-override'),
+  // methodOverride = require('method-override'),
   // Product = require('./models/product'),
   // Comment = require('./models/comment'),
   User = require('./models/user');
@@ -67,6 +67,7 @@ app.post('/uploadPhoto', (req, res) => {
     storage: Storage,
     limits: { fileSize: 150000 },
     fileFilter: function(req, file, cb) {
+      console.warn({ file });
       if (file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg') {
         return res.send({
           error: 'Only .jpg and .jpeg files can be uploaded.'
