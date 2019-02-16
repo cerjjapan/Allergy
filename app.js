@@ -67,7 +67,6 @@ app.post('/uploadPhoto', (req, res) => {
   console.warn({ Storage });
   const upload = multer({
     storage: Storage,
-    limits: { fileSize: 150000 },
     fileFilter: function(req, file, cb) {
       console.warn({ file });
       if (file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg') {
